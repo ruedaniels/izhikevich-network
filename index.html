@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Izhikevich Spiking Network</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <h1>Izhikevich Spiking Network</h1>
+        <p class="subtitle">A network of biologically realistic neurons producing emergent firing patterns.</p>
+      </header>
+
+      <div class="pattern-bar">
+        <button class="pattern-btn active" data-pattern="regular">Regular Spiking</button>
+        <button class="pattern-btn" data-pattern="bursting">Bursting</button>
+        <button class="pattern-btn" data-pattern="chattering">Chattering</button>
+        <button class="pattern-btn" data-pattern="fast">Fast Spiking</button>
+        <button class="pattern-btn" data-pattern="mixed">Mixed Network</button>
+      </div>
+
+      <canvas id="canvas"></canvas>
+
+      <div class="stats">
+        <div class="stat"><span id="s-spikes">0</span><label>Total spikes</label></div>
+        <div class="stat"><span id="s-rate">0.00</span><label>Network rate (Hz)</label></div>
+        <div class="stat"><span id="s-time">0</span><label>Time (ms)</label></div>
+      </div>
+
+      <div class="controls">
+        <div class="control">
+          <label>Input current I</label>
+          <input type="range" id="r-current" min="0" max="20" value="10" step="1" />
+          <span id="o-current">10</span>
+        </div>
+        <div class="control">
+          <label>Noise σ</label>
+          <input type="range" id="r-noise" min="0" max="10" value="3" step="1" />
+          <span id="o-noise">3</span>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button id="btn-reset">Reset</button>
+        <button id="btn-pause">Pause</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
