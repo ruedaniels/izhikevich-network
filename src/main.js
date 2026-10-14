@@ -1,7 +1,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-let paused = false;
+let paused = true; // wait for the user to press Start
 let time = 0;
 let totalSpikes = 0;
 let currentPattern = 'regular';
@@ -185,7 +185,7 @@ document.querySelectorAll('.pattern-btn').forEach(btn => {
 document.getElementById('btn-reset').addEventListener('click', reset);
 document.getElementById('btn-pause').addEventListener('click', () => {
   paused = !paused;
-  document.getElementById('btn-pause').textContent = paused ? 'Resume' : 'Pause';
+  document.getElementById('btn-pause').textContent = paused ? 'Start' : 'Pause';
 });
 
 document.getElementById('r-current').addEventListener('input', e => {
