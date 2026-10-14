@@ -82,7 +82,6 @@ function step() {
     }
   }
   time += DT;
-  updateStats();
 }
 
 function updateStats() {
@@ -165,9 +164,26 @@ function draw() {
   ctx.stroke();
 }
 
-function loop() {
+// Run the simulation in real time: 1 ms of simulated time per 1 ms of real time,
+// no matter how fast the screen refreshes (60 Hz, 120 Hz, etc.)
+let lastFrameTime = null;
+let unsimulatedTime = 0; // real time (ms) that has passed but not been simulated yet
+
+function loop(now) {
+  if (lastFrameTime === null) lastFrameTime = now;
+  let elapsed = now - lastFrameTime;
+  lastFrameTime = now;
+
+  // If the tab was hidden for a while, don't try to catch up all at once
+  if (elapsed > 100) elapsed = 100;
+
   if (!paused) {
-    for (let i = 0; i < 4; i++) step();
+    unsimulatedTime += elapsed;
+    while (unsimulatedTime >= DT) {
+      step();
+      unsimulatedTime -= DT;
+    }
+    updateStats();
   }
   draw();
   requestAnimationFrame(loop);
@@ -211,4 +227,4 @@ canvas.height = rect.height * window.devicePixelRatio;
 ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
 
 reset();
-loop();
+requestAnimationFrame(loop);
