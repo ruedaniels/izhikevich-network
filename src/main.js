@@ -164,8 +164,9 @@ function draw() {
   ctx.stroke();
 }
 
-// Run the simulation in real time: 1 ms of simulated time per 1 ms of real time,
-// no matter how fast the screen refreshes (60 Hz, 120 Hz, etc.)
+// Run the simulation at the same speed on every screen (60 Hz, 120 Hz, etc.)
+// SPEED = simulated ms per real ms. 0.125 is slowed down so the spikes are easy to watch.
+const SPEED = 0.125;
 let lastFrameTime = null;
 let unsimulatedTime = 0; // real time (ms) that has passed but not been simulated yet
 
@@ -178,7 +179,7 @@ function loop(now) {
   if (elapsed > 100) elapsed = 100;
 
   if (!paused) {
-    unsimulatedTime += elapsed;
+    unsimulatedTime += elapsed * SPEED;
     while (unsimulatedTime >= DT) {
       step();
       unsimulatedTime -= DT;
