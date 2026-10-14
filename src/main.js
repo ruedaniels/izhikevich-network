@@ -88,8 +88,10 @@ function step() {
 function updateStats() {
   document.getElementById('s-spikes').textContent = totalSpikes;
   document.getElementById('s-time').textContent = Math.floor(time);
-  const rate = totalSpikes / (time * DT / 1000 + 0.001);
-  document.getElementById('s-rate').textContent = Math.min(rate, 999).toFixed(2);
+  // time is already in ms (it grows by DT each step), so convert ms to seconds only
+  const seconds = time / 1000;
+  const rate = seconds > 0 ? totalSpikes / seconds : 0;
+  document.getElementById('s-rate').textContent = rate.toFixed(2);
 }
 
 function draw() {
